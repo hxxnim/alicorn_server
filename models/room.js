@@ -9,6 +9,14 @@ module.exports = class Room extends Sequelize.Model {
           autoIncrement: true,
           primaryKey: true,
         },
+        creator_name: {
+          type: Sequelize.STRING(45),
+          allowNull: false,
+        },
+        inviter_name: {
+          type: Sequelize.STRING(45),
+          allowNull: false,
+        },
       },
       {
         sequelize,
@@ -23,7 +31,6 @@ module.exports = class Room extends Sequelize.Model {
     );
   }
   static associate(db) {
-    db.Room.hasMany(db.User);
-    db.Room.hasMany(db.User);
+    db.Room.hasMany(db.Message, { foreignKey: "room_id" });
   }
 };

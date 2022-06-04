@@ -2,8 +2,21 @@ const express = require("express");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const { User } = require("../models");
+const sequelize = require("sequelize");
+const Op = sequelize.Op;
 
 const router = express.Router();
+
+router.get("/search", async (req, res) => {
+  const { name } = req.query;
+  const users = await User.findAll({
+    where: { name: { [Op.like]: `%${name}%` } },
+  });
+
+  res.status(200).json({
+    users: users,
+  });
+});
 
 router.post("/signup", async (req, res, next) => {
   const { name, email, password } = req.body;
@@ -30,7 +43,7 @@ router.post("/signin", async (req, res, next) => {
   }
 
   if (!bcrypt.compare(password, user.password)) {
-    return res.status(400).send("password diffirent");
+    return res.status(400).send("password different");
   }
 
   const payload = { email: email, user_id: user.id };
@@ -39,7 +52,10 @@ router.post("/signin", async (req, res, next) => {
     expiresIn: "120h",
   });
 
-  return res.status(201).json(token);
+  return res.status(201).json({
+    name: user.name,
+    access_token: token,
+  });
 });
 
 module.exports = router;
