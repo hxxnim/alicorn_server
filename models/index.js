@@ -22,8 +22,8 @@ User.init(sequelize);
 Room.init(sequelize);
 Message.init(sequelize);
 
-// User.associate(db);
+User.associate(db);
 Room.associate(db);
-Message.associate(db);
+// Message.associate(db);
 
 module.exports = db;

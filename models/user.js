@@ -35,4 +35,9 @@ module.exports = class User extends Sequelize.Model {
       }
     );
   }
+  static associate(db) {
+    db.User.hasMany(db.Room, { foreignKey: "creator_id" });
+    db.User.hasMany(db.Room, { foreignKey: "inviter_id" });
+    db.User.hasMany(db.Message, { foreignKey: "user_id" });
+  }
 };

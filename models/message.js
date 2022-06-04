@@ -26,8 +26,4 @@ module.exports = class Message extends Sequelize.Model {
       }
     );
   }
-  static associate(db) {
-    db.Message.hasMany(db.User);
-    db.Message.hasMany(db.Room);
-  }
 };
