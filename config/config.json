@@ -2,14 +2,14 @@
   "development": {
     "username": "root",
     "password": "wjsrbgus12#$",
-    "database": "alicorn-server",
+    "database": "alicorn_server",
     "host": "alicorn-server.cumoygfdxegm.ap-northeast-2.rds.amazonaws.com",
     "dialect": "mysql"
   },
   "prodection": {
     "username": "root",
     "password": "wjsrbgus12#$",
-    "database": "alicorn-server",
+    "database": "alicorn_server",
     "host": "alicorn-server.cumoygfdxegm.ap-northeast-2.rds.amazonaws.com",
     "dialect": "mysql"
   }
