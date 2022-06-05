@@ -10,6 +10,7 @@ const router = express.Router();
 router.get("/search", async (req, res) => {
   const { name } = req.query;
   const users = await User.findAll({
+    attributes: ["id", "name"],
     where: { name: { [Op.like]: `%${name}%` } },
   });
 
