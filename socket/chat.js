@@ -34,27 +34,38 @@ module.exports = (server, app) => {
       socket.emit("cr_room", room.id);
     });
 
-    socket.on("in_room", async (data) => {
-      const room = await Room.findOne({
-        where: {
-          id: data.room_id,
-        },
+    socket.on("send", (data) => {
+      const { access_token, room_id, message } = data;
+      const user_id = jwt.verify(access_token, "secret").user_id;
+      const message_obj = Message.create({
+        user_id: user_id,
+        room_id: room_id,
+        content: message,
       });
-
-      const messages = await Message.findAll({
-        where: {
-          room_id: data.room_id,
-        },
-      });
-
-      io.of(`/rooms/${data.room_id}`).emit("in_room", {
-        user_name: room.inviter_name,
-        messages: messages,
-      });
+      io.to(room_id).emit("send", message_obj);
     });
 
-    io.of("/rooms").on("send", (data) => {
-      io.of(`/rooms/${data.room_id}`).emit("send", data);
-    });
+    // socket.on("in_room", async (data) => {
+    //   const room = await Room.findOne({
+    //     where: {
+    //       id: data.room_id,
+    //     },
+    //   });
+
+    //   const messages = await Message.findAll({
+    //     where: {
+    //       room_id: data.room_id,
+    //     },
+    //   });
+
+    //   io.of(`/rooms/${data.room_id}`).emit("in_room", {
+    //     user_name: room.inviter_name,
+    //     messages: messages,
+    //   });
+    // });
+
+    // io.of("/rooms").on("send", (data) => {
+    //   io.of(`/rooms/${data.room_id}`).emit("send", data);
+    // });
   });
 };
