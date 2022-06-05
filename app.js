@@ -3,6 +3,7 @@ const { sequelize } = require("./models");
 const userRouter = require("./router/user");
 const roomRouter = require("./router/room");
 const cors = require("cors");
+const webSocket = require("./socket/chat");
 
 const app = express();
 const port = 3003;
@@ -15,6 +16,8 @@ app.use(express.json());
 app.use("/users", userRouter);
 app.use("/rooms", roomRouter);
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
+
+webSocket(server, app);
