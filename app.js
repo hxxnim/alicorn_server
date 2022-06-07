@@ -6,7 +6,7 @@ const cors = require("cors");
 const webSocket = require("./socket/chat");
 
 const app = express();
-const port = 3003;
+const port = 3002;
 sequelize.sync();
 
 app.use(cors());

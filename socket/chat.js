@@ -31,6 +31,7 @@ module.exports = (server, app) => {
         inviter_id,
         inviter_name,
       });
+      console.log("e", room.id);
       socket.emit("cr_room", room.id);
     });
 
