@@ -4,13 +4,15 @@
     "password": "wjsrbgus12#$",
     "database": "alicorn_server",
     "host": "alicorn-server.cumoygfdxegm.ap-northeast-2.rds.amazonaws.com",
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "port": 3308
   },
   "prodection": {
     "username": "root",
     "password": "wjsrbgus12#$",
     "database": "alicorn_server",
     "host": "alicorn-server.cumoygfdxegm.ap-northeast-2.rds.amazonaws.com",
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "port": 3308
   }
 }
