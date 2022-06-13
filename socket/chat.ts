@@ -5,7 +5,7 @@ const Room = require("../models/room");
 
 let socketList = [];
 
-module.exports = (server, app) => {
+module.exports = (server: any, app: any) => {
   // const io = SocketIO(server, { path: "/socket.io" });
 
   const io = require("socket.io")(server, {
@@ -15,14 +15,14 @@ module.exports = (server, app) => {
     },
   });
 
-  io.on("connection", (socket) => {
+  io.on("connection", (socket: any) => {
     socketList.push(socket);
     console.log("user connected", socket.id);
     socket.on("disconnect", () => {
       console.log("user disconnected");
     });
 
-    socket.on("cr_room", (data) => {
+    socket.on("cr_room", (data: any) => {
       const { access_token, creator_name, inviter_id, inviter_name } = data;
       const creator_id = jwt.verify(access_token, "secret").user_id;
       const room = Room.create({
@@ -35,7 +35,7 @@ module.exports = (server, app) => {
       socket.emit("cr_room", room.id);
     });
 
-    socket.on("send", (data) => {
+    socket.on("send", (data: any) => {
       const { access_token, room_id, message } = data;
       const user_id = jwt.verify(access_token, "secret").user_id;
       const message_obj = Message.create({
